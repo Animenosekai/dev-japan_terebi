@@ -1,0 +1,104 @@
+*{
+    font-family: 'Roboto', sans-serif;
+}
+
+.loader{
+    display: block;
+    border: 2.5px solid;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border-color: orange transparent transparent;
+    animation: spin 2s linear infinite,hue_animation 4s linear infinite;
+}
+  
+@keyframes spin{
+    100%{
+        transform:rotate(360deg)
+    }
+  }
+@keyframes hue_animation{
+    100%{
+        filter:hue-rotate(360deg)
+    }
+}
+#checkAllLoader{
+    display: none;
+    margin-left: 35%;
+}
+
+
+#content{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-around;
+}
+
+#title{
+    font-size: 30px;
+}
+
+#checkall{
+    margin-top: 10px;
+}
+
+.button{
+    cursor: pointer;
+    height: 40px;
+    width: 130px;
+    font-size: 13px;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    box-shadow: #8877e3 0px 0px 2px 0px;
+    transition: all 200ms ease;
+}
+.button:focus{
+    outline: none !important;
+}
+.button:hover{
+    transform: scale(1.025);
+}
+
+
+#checkall_btn{
+    height: 50px;
+    width: 140px;
+}
+
+#updatereport{
+    margin-top: 80px;
+}
+
+.status{
+    position: relative;
+    left: 44%;
+    display: flex;
+    margin-top: 20px;
+}
+
+.status_container{
+    display: none;
+}
+
+.statusicon{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+
+.check{
+    display: none;
+    transform: rotate(45deg);
+    height: 12px;
+    width: 6px;
+    border-bottom: 3.5px solid #78b13f;
+    border-right: 3.5px solid #78b13f;
+    margin-top: 10px;
+}
+
+#requestResponseContainer{
+    display: none;
+}

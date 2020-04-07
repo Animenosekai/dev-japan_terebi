@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="style-src 'self' https://fonts.googleapis.com">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://cdn.jsdelivr.net">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japan Terebi - Dev Checking</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="main.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+<div id="content">
+    <div id="maintitle">
+        <p id="title">Japan Terebi Development - Link Checking</p>
+    </div>
+    <div id="checkall">
+        <button id="checkall_btn" class="button">
+            <p id="checkAllText">Check all sources?</p>
+            <div class="loader" id="checkAllLoader"></div>
+        </button>
+    </div>
+    <div id="updatereport">
+
+        <div id="ntvchecking" class="status">
+            <div id="ntvchecking_statuscontainer" class="status_container">
+                <p id="ntvchecking_text">Checking NTV</p>
+                <div class="statusicon">
+                    <div class="loader" id="ntvLoader"></div>
+                    <div id="ntvChecked" class="check"></div>
+                </div>
+            </div>
+            <button id="ntvchecking_btn" class="button">Check NTV</button>
+        </div>
+
+        <div id="tvtokyochecking" class="status">
+            <div id="tvtokyochecking_statuscontainer" class="status_container">
+                <p id="tvtokyochecking_text">Checking TV Tokyo</p>
+                <div class="statusicon">
+                    <div class="loader" id="tvtokyoLoader"></div>
+                    <div id="tvtokyoChecked" class="check"></div>
+                </div>
+            </div>
+            <button id="tvtokyochecking_btn" class="button">Check TV Tokyo</button>
+        </div>
+
+        <div id="tvasahichecking" class="status">
+            <div id="tvasahichecking_statuscontainer" class="status_container">
+                <p id="tvasahichecking_text">Checking TV Asahi</p>
+                <div class="statusicon">
+                    <div class="loader" id="tvasahiLoader"></div>
+                    <div id="tvasahiChecked" class="check"></div>
+                </div>
+            </div>
+            <button id="tvasahichecking_btn" class="button">Check TV Asahi</button>
+        </div>
+
+        <div id="fujitvchecking" class="status">
+            <div id="fujitvchecking_statuscontainer" class="status_container">
+                <p id="fujitvchecking_text">Checking Fuji TV</p>
+                <div class="statusicon">
+                    <div class="loader" id="fujitvLoader"></div>
+                    <div id="fujitvChecked" class="check"></div>
+                </div>
+            </div>
+            <button id="fujitvchecking_btn" class="button">Check Fuji TV</button>
+        </div>
+
+        <div id="tokyomxchecking" class="status">
+            <div id="tokyomxchecking_statuscontainer" class="status_container">
+                <p id="tokyomxchecking_text">Checking Tokyo MX</p>
+                <div class="statusicon">
+                    <div class="loader" id="tokyomxLoader"></div>
+                    <div id="tokyomxChecked" class="check"></div>
+                </div>
+            </div>
+            <button id="tokyomxchecking_btn" class="button">Check Tokyo MX</button>
+        </div>
+
+        <div id="tbschecking" class="status">
+            <div id="tbschecking_statuscontainer" class="status_container">
+                <p id="tbschecking_text">Checking TBS</p>
+                <div class="statusicon">
+                    <div class="loader" id="tbsLoader"></div>
+                    <div id="tbsChecked" class="check"></div>
+                </div>
+            </div>
+            <button id="tbschecking_btn" class="button">Check TBS</button>
+        </div>
+
+        <div id="nhkchecking" class="status">
+            <div id="nhkchecking_statuscontainer" class="status_container">
+                <p id="nhkchecking_text">Checking NHK</p>
+                <div class="statusicon">
+                    <div class="loader" id="nhkLoader"></div>
+                    <div id="nhkChecked" class="check"></div>
+                </div>
+            </div>
+            <button id="nhkchecking_btn" class="button">Check NHK</button>
+        </div>
+
+    </div>
+</div>
+
+
+    <div id="requestResponseContainer">
+    </div>
+
+</body>
+</html>
