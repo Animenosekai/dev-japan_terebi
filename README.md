@@ -1,4 +1,4 @@
-# Japan Terebi development tools
+# [Japan Terebi](https://github.com/Animenosekai/japan_terebi) development tools
 
 ## This development tools website contains:
 
