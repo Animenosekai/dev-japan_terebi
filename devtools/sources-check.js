@@ -48,7 +48,8 @@ function checkAll(){
     })
     .then(function(response){
         document.getElementById('requestResponseContainer').innerHTML = response.data
-        ntvNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+        ntvNewLink = document.getElementById('su-ivp').src
+        ntvNewLink = ntvNewLink.substring(0, 37) + '?autoplay=1'
         axios({
             method: 'get',
             url: linksStorageURL,
@@ -77,6 +78,7 @@ function checkAll(){
                 .then(function(response){
                     document.getElementById('requestResponseContainer').innerHTML = response.data
                     tvtokyoNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+                    tvtokyoNewLink = tvtokyoNewLink.substring(0, 37) + '?autoplay=1'
                     axios({
                         method: 'get',
                         url: linksStorageURL,
@@ -105,6 +107,7 @@ function checkAll(){
                             .then(function(response){
                                 document.getElementById('requestResponseContainer').innerHTML = response.data
                                 tvasahiNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+                                tvasahiNewLink = tvasahiNewLink.substring(0, 37) + '?autoplay=1'
                                 axios({
                                     method: 'get',
                                     url: linksStorageURL,
@@ -133,6 +136,7 @@ function checkAll(){
                                         .then(function(response){
                                             document.getElementById('requestResponseContainer').innerHTML = response.data
                                             fujitvNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+                                            fujitvNewLink = fujitvNewLink.substring(0, 37) + '?autoplay=1'
                                             axios({
                                                 method: 'get',
                                                 url: linksStorageURL,
@@ -161,6 +165,7 @@ function checkAll(){
                                                     .then(function(response){
                                                         document.getElementById('requestResponseContainer').innerHTML = response.data
                                                         tokyomxNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+                                                        tokyomxNewLink = tokyomxNewLink.substring(0, 37) + '?autoplay=1'
                                                         axios({
                                                             method: 'get',
                                                             url: linksStorageURL,
@@ -189,6 +194,7 @@ function checkAll(){
                                                                 .then(function(response){
                                                                     document.getElementById('requestResponseContainer').innerHTML = response.data
                                                                     tbsNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+                                                                    tbsNewLink = tbsNewLink.substring(0, 37) + '?autoplay=1'
                                                                     axios({
                                                                         method: 'get',
                                                                         url: linksStorageURL,
@@ -217,6 +223,7 @@ function checkAll(){
                                                                             .then(function(response){
                                                                                 document.getElementById('requestResponseContainer').innerHTML = response.data
                                                                                 nhkNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+                                                                                nhkNewLink = nhkNewLink.substring(0, 37) + '?autoplay=1'
                                                                                 axios({
                                                                                     method: 'get',
                                                                                     url: linksStorageURL,
@@ -273,6 +280,7 @@ function ntvChecking(){
     .then(function(response){
         document.getElementById('requestResponseContainer').innerHTML = response.data
         ntvNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+        ntvNewLink = ntvNewLink.substring(0, 37) + '?autoplay=1'
         axios({
             method: 'get',
             url: linksStorageURL,
@@ -308,6 +316,7 @@ function tvtokyoChecking(){
     .then(function(response){
         document.getElementById('requestResponseContainer').innerHTML = response.data
         tvtokyoNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+        tvtokyoNewLink = tvtokyoNewLink.substring(0, 37) + '?autoplay=1'
         axios({
             method: 'get',
             url: linksStorageURL,
@@ -343,6 +352,7 @@ function tvasahiChecking(){
     .then(function(response){
         document.getElementById('requestResponseContainer').innerHTML = response.data
         tvasahiNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+        tvasahiNewLink = tvasahiNewLink.substring(0, 37) + '?autoplay=1'
         axios({
             method: 'get',
             url: linksStorageURL,
@@ -378,6 +388,7 @@ function fujitvChecking(){
     .then(function(response){
         document.getElementById('requestResponseContainer').innerHTML = response.data
         fujitvNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+        fujitvNewLink = fujitvNewLink.substring(0, 37) + '?autoplay=1'
         axios({
             method: 'get',
             url: linksStorageURL,
@@ -413,6 +424,7 @@ function tokyomxChecking(){
     .then(function(response){
         document.getElementById('requestResponseContainer').innerHTML = response.data
         tokyomxNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+        tokyomxNewLink = tokyomxNewLink.substring(0, 37) + '?autoplay=1'
         axios({
             method: 'get',
             url: linksStorageURL,
@@ -448,6 +460,7 @@ function tbsChecking(){
     .then(function(response){
         document.getElementById('requestResponseContainer').innerHTML = response.data
         tbsNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+        tbsNewLink = tbsNewLink.substring(0, 37) + '?autoplay=1'
         axios({
             method: 'get',
             url: linksStorageURL,
@@ -483,6 +496,7 @@ function nhkChecking(){
     .then(function(response){
         document.getElementById('requestResponseContainer').innerHTML = response.data
         nhkNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+        nhkNewLink = nhkNewLink.substring(0, 37) + '?autoplay=1'
         axios({
             method: 'get',
             url: linksStorageURL,
