@@ -540,7 +540,8 @@ function atxChecking(){
             axios({
                 url: requestURL,
                 method: 'get',
-                responseType: 'json'
+                responseType: 'json',
+                headers: {'Access-Control-Allow-Origin': '*'}
             })
             .then(function(response){
                 console.log(response)
