@@ -522,7 +522,7 @@ function nhkChecking(){
 }
 
 function getVkToken(){
-    window.open("https://oauth.vk.com/authorize?client_id=7374576&display=page&redirect_uri=https://dev-japanterebi.netlify.com/redirect/vk/token&scope=video&response_type=token&v=5.103", '_self')
+    window.open("https://oauth.vk.com/authorize?client_id=7374576&display=page&redirect_uri=https://dev-japanterebi.netlify.app/redirect/vk/token&scope=video&response_type=token&v=5.103", '_self')
 }
 
 
