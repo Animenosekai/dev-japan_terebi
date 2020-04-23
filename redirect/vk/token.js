@@ -1,13 +1,12 @@
-console.log("[Setting the url parameters]")
-const urlParams = new URLSearchParams(window.location.search)
-
 console.log("[Getting the token]")
-const token = urlParams.get('access_token');
+const hash = window.location.hash
+const newHash = hash.substring(0, hash.indexOf('&'))
+const token = newHash.substring(14)
 window.localStorage.setItem('vkAPIToken_accessToken', token)
 
 console.log("[Getting the expiration date]")
 const expirationDate = urlParams.get('expires_in')
-window.localStorage.setItem('vkAPIToken_expiration', expirationDate)
+window.localStorage.setItem('vkAPIToken_expiration', 86400)
 
 console.log("[Getting the current date]")
 const askedDate = new Date()
