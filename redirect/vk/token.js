@@ -5,7 +5,6 @@ const token = newHash.substring(14)
 window.localStorage.setItem('vkAPIToken_accessToken', token)
 
 console.log("[Getting the expiration date]")
-const expirationDate = urlParams.get('expires_in')
 window.localStorage.setItem('vkAPIToken_expiration', 86400)
 
 console.log("[Getting the current date]")
