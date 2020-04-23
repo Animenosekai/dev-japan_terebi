@@ -519,3 +519,55 @@ function nhkChecking(){
         })
     })
 }
+
+function getVkToken(){
+    window.open("https://oauth.vk.com/authorize?client_id=7374576&display=page&redirect_uri=https%3A%2F%2Fdev-japanterebi.netlify.com%2Fredirect%2Fvk%2Ftoken&scope=video&response_type=token&v=5.103", '_self')
+}
+
+
+function atxChecking(){
+    if(window.localStorage.getItem('vkAPIToken_accessToken') !== null){
+        var time = (Math.abs(new Date() - new Date(window.localStorage.getItem("vkAPIToken_tokenCreationDate")))/1000) + 120
+        if(time>window.localStorage.getItem('vkAPIToken_expiration')){
+            getVkToken()
+        }else{
+            document.getElementById('atxchecking_btn').style.display = 'none';
+            document.getElementById('atxchecking_statuscontainer').style.display = 'flex'
+            console.log('Checking AT-X...')
+            var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
+            requestURL = 'https://api.vk.com/method/video.get?owner_id=-192507857?count=1?offset=0&access_token=' + window.localStorage.getItem('vkAPIToken_accessToken')
+            axios({
+                url: requestURL,
+                method: 'get',
+                responseType: 'json'
+            })
+            .then(function(response){
+                console.log(response)
+                var externalPlayer = response.data.response.items[0].files.external + '&autoplay=1'
+                var hls = response.data.response.items[0].files.hls
+                axios({
+                    method: 'get',
+                    url: linksStorageURL,
+                    responseType: 'json'
+                })
+                .then(function(response){
+                    var links = response.data
+                    links.atx = externalPlayer
+                    links.rawatx = hls
+                    axios({
+                        method: 'put',
+                        url: linksStorageURL,
+                        data: links
+                    })
+                    .then(function(){
+                        document.getElementById('atxLoader').style.display = 'none';
+                        document.getElementById('atxChecked').style.display = 'inline-block';
+                        console.log('AT-X has been checked!')
+                    })
+                })
+            })
+        }
+    }else{
+        getVkToken()
+    }
+}
