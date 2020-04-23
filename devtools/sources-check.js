@@ -543,6 +543,7 @@ function atxChecking(){
                 dataType: 'jsonp',
                 crossDomain: true,
                 success: function (data){
+                    console.log(data)
                     var externalPlayer = data.response.items[0].files.external + '&autoplay=1'
                     var hls = data.response.items[0].files.hls
                     axios({
