@@ -13,6 +13,7 @@ window.onload = function(){
     document.getElementById('tokyomxchecking_btn').onclick = tokyomxChecking
     document.getElementById('tbschecking_btn').onclick = tbsChecking
     document.getElementById('nhkchecking_btn').onclick = nhkChecking
+    document.getElementById('atxchecking_btn').onclick = atxChecking
 }
 
 function checkAll(){
