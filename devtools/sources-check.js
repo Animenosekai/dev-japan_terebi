@@ -544,8 +544,7 @@ function atxChecking(){
                 crossDomain: true,
                 success: function (data){
                     console.log(data)
-                    var externalPlayer = data.response.items[0].files.external + '&autoplay=1'
-                    var hls = data.response.items[0].files.hls
+                    var externalPlayer = data.response.items[0].player + '&autoplay=1'
                     axios({
                         method: 'get',
                         url: linksStorageURL,
@@ -554,7 +553,6 @@ function atxChecking(){
                     .then(function(response){
                         var links = response.data
                         links.atx = externalPlayer
-                        links.rawatx = hls
                         axios({
                             method: 'put',
                             url: linksStorageURL,
