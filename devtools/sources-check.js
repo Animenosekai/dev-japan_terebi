@@ -536,7 +536,7 @@ function atxChecking(){
             document.getElementById('atxchecking_statuscontainer').style.display = 'flex'
             console.log('Checking AT-X...')
             var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
-            requestURL = 'https://api.vk.com/method/video.get?owner_id=-192507857&count=1&offset=0&access_token=' + window.localStorage.getItem('vkAPIToken_accessToken')
+            requestURL = 'https://api.vk.com/method/video.get?owner_id=-192507857&count=1&offset=0&access_token=' + window.localStorage.getItem('vkAPIToken_accessToken') + '&v=5.103'
             $.ajax ({
                 url: requestURL,
                 type: 'GET',
