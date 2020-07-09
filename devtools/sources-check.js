@@ -14,6 +14,8 @@ window.onload = function(){
     document.getElementById('tbschecking_btn').onclick = tbsChecking
     document.getElementById('nhkchecking_btn').onclick = nhkChecking
     document.getElementById('atxchecking_btn').onclick = atxChecking
+    document.getElementById('tokyomx_vk_checking_btn').onclick = tokyomx_vk_Checking
+    document.getElementById('tbs_vk_checking_btn').onclick = tbs_vk_Checking
 }
 
 function checkAll(){
@@ -535,7 +537,7 @@ function atxChecking(){
             document.getElementById('atxchecking_btn').style.display = 'none';
             document.getElementById('atxchecking_statuscontainer').style.display = 'flex'
             console.log('Checking AT-X...')
-   var owner_id = '-192507857'
+            var owner_id = '-192507857'
             var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
             requestURL = 'https://api.vk.com/method/video.get?owner_id='+ owner_id + '&count=1&offset=0&extended=1&access_token=' + window.localStorage.getItem('vkAPIToken_accessToken') + '&v=5.103'
             $.ajax ({
@@ -569,5 +571,153 @@ function atxChecking(){
         }
     }else{
         getVkToken()
+    }
+}
+
+function tbs_vk_Checking(){
+    try{
+        if(window.localStorage.getItem('vkAPIToken_accessToken') !== null){
+            var time = (Math.abs(new Date() - new Date(window.localStorage.getItem("vkAPIToken_tokenCreationDate")))/1000) + 120
+            if(time>window.localStorage.getItem('vkAPIToken_expiration')){
+                getVkToken()
+            }else{
+                document.getElementById('tbs_vk_checking_btn').style.display = 'none';
+                document.getElementById('tbs_vk_checking_statuscontainer').style.display = 'flex'
+                console.log('Checking TBS on VK...')
+                var owner_id = '-177082369'
+                var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
+                requestURL = 'https://api.vk.com/method/video.get?owner_id='+ owner_id + '&count=3&offset=0&access_token=' + window.localStorage.getItem('vkAPIToken_accessToken') + '&v=5.120'
+                $.ajax ({
+                    url: requestURL,
+                    type: 'GET',
+                    dataType: 'jsonp',
+                    crossDomain: true,
+                    success: function (data){
+                        console.log(data)
+                        var found = false
+                        for(item in data.response.items){
+                            try{
+                                if (data.response.items[item].live == 1){
+                                    if (data.response.items[item].title.includes('TBS')){
+                                        found = true
+                                        var externalPlayer = data.response.items[item].player + '&autoplay=1'
+                                        axios({
+                                            method: 'get',
+                                            url: linksStorageURL,
+                                            responseType: 'json'
+                                        })
+                                        .then(function(response){
+                                            var links = response.data
+                                            links.tbs = externalPlayer
+                                            axios({
+                                                method: 'put',
+                                                url: linksStorageURL,
+                                                data: links
+                                            })
+                                            .then(function(){
+                                                document.getElementById('tbs_vk_Loader').style.display = 'none';
+                                                document.getElementById('tbs_vk_Checked').style.display = 'inline-block';
+                                                console.log('TBS has been found on VK!')
+                                            })
+                                        })
+                                    }
+                                }else{
+                                    console.log('Not live, ignoring...')
+                                }
+                            }catch{
+                                console.log('Not live, ignoring...')
+                            }
+                        }
+                        if (found == false){
+                            document.getElementById('tbs_vk_Loader').style.display = 'none';
+                            document.getElementById('tbs_vk_checking_text').innerText = 'No TBS source on VK ❌'
+                            console.log('No TBS on VK...')
+                        }
+                }})
+            }
+        }else{
+            getVkToken()
+        }
+    }catch{
+        document.getElementById('tbs_vk_checking_btn').style.display = 'none';
+        document.getElementById('tbs_vk_checking_statuscontainer').style.display = 'flex'
+        document.getElementById('tbs_vk_Loader').style.display = 'none';
+        document.getElementById('tbs_vk_checking_text').innerText = 'An error occured while checking for TBS on VK ❌'
+        console.log('An error occured while trying to check for TBS on VK...')
+    }
+}
+
+function tokyomx_vk_Checking(){
+    try{
+        if(window.localStorage.getItem('vkAPIToken_accessToken') !== null){
+            var time = (Math.abs(new Date() - new Date(window.localStorage.getItem("vkAPIToken_tokenCreationDate")))/1000) + 120
+            if(time>window.localStorage.getItem('vkAPIToken_expiration')){
+                getVkToken()
+            }else{
+                document.getElementById('tokyomx_vk_checking_btn').style.display = 'none';
+                document.getElementById('tokyomx_vk_checking_statuscontainer').style.display = 'flex'
+                console.log('Checking Tokyo MX on VK...')
+                var owner_id = '-177082369'
+                var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
+                requestURL = 'https://api.vk.com/method/video.get?owner_id='+ owner_id + '&count=3&offset=0&access_token=' + window.localStorage.getItem('vkAPIToken_accessToken') + '&v=5.120'
+                $.ajax ({
+                    url: requestURL,
+                    type: 'GET',
+                    dataType: 'jsonp',
+                    crossDomain: true,
+                    success: function (data){
+                        console.log(data)
+                        var found = false
+                        for(item in data.response.items){
+                            try{
+                                if (data.response.items[item].live == 1){
+                                    if (data.response.items[item].title.includes('Tokyo MX')){
+                                        found = true
+                                        var externalPlayer = data.response.items[item].player + '&autoplay=1'
+                                        axios({
+                                            method: 'get',
+                                            url: linksStorageURL,
+                                            responseType: 'json'
+                                        })
+                                        .then(function(response){
+                                            var links = response.data
+                                            links.tokyomx = externalPlayer
+                                            axios({
+                                                method: 'put',
+                                                url: linksStorageURL,
+                                                data: links
+                                            })
+                                            .then(function(){
+                                                document.getElementById('tokyomx_vk_Loader').style.display = 'none';
+                                                document.getElementById('tokyomx_vk_Checked').style.display = 'inline-block';
+                                                console.log('Tokyo MX has been found on VK!')
+                                            })
+                                        })
+                                    }
+                                }
+                                else{
+                                    console.log('Not live, ignoring...')
+                                }
+                            }catch{
+                                console.log('Not live, ignoring...')
+                            }
+                        }
+                        if (found == false){
+                            document.getElementById('tokyomx_vk_Loader').style.display = 'none';
+                            document.getElementById('tokyomx_vk_checking_text').innerText = 'No Tokyo MX source on VK ❌'
+                            console.log('No Tokyo MX on VK...')
+                        }
+                }})
+            }
+        }else{
+            getVkToken()
+        }
+    }
+    catch{
+        document.getElementById('tokyomx_vk_checking_btn').style.display = 'none';
+        document.getElementById('tokyomx_vk_checking_statuscontainer').style.display = 'flex'
+        document.getElementById('tokyomx_vk_Loader').style.display = 'none';
+        document.getElementById('tokyomx_vk_checking_text').innerText = 'An error occured while checking for Tokyo MX on VK ❌'
+        console.log('An error occured while trying to check for Tokyo MX on VK...')
     }
 }
