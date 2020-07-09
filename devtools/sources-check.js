@@ -539,7 +539,7 @@ function atxChecking(){
             console.log('Checking AT-X...')
             var owner_id = '-192507857'
             var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
-            requestURL = 'https://api.vk.com/method/video.get?owner_id='+ owner_id + '&count=1&offset=0&extended=1&access_token=' + window.localStorage.getItem('vkAPIToken_accessToken') + '&v=5.103'
+            requestURL = 'https://api.vk.com/method/video.get?owner_id='+ owner_id + '&count=3&offset=0&extended=1&access_token=' + window.localStorage.getItem('vkAPIToken_accessToken') + '&v=5.103'
             $.ajax ({
                 url: requestURL,
                 type: 'GET',
@@ -547,6 +547,7 @@ function atxChecking(){
                 crossDomain: true,
                 success: function (data){
                     console.log(data)
+                    if (data.response.items[0].title.includes('ATX')) {
                     var externalPlayer = data.response.items[0].player + '&autoplay=1'
                     axios({
                         method: 'get',
@@ -567,6 +568,28 @@ function atxChecking(){
                             console.log('AT-X has been checked!')
                         })
                     })
+                    }else{
+                        var externalPlayer = data.response.items[1].player + '&autoplay=1'
+                        axios({
+                            method: 'get',
+                            url: linksStorageURL,
+                            responseType: 'json'
+                        })
+                        .then(function(response){
+                            var links = response.data
+                            links.atx = externalPlayer
+                            axios({
+                                method: 'put',
+                                url: linksStorageURL,
+                                data: links
+                            })
+                            .then(function(){
+                                document.getElementById('atxLoader').style.display = 'none';
+                                document.getElementById('atxChecked').style.display = 'inline-block';
+                                console.log('AT-X has been checked!')
+                            })
+                        })
+                    }
             }})
         }
     }else{
