@@ -272,261 +272,318 @@ function checkAll(){
 
 
 function ntvChecking(){
-    document.getElementById('ntvchecking_btn').style.display = 'none';
-    document.getElementById('ntvchecking_statuscontainer').style.display = 'flex'
-    console.log('Checking NTV...')
-    var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
-    axios({
-        method: 'get',
-        url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/ntv'
-    })
-    .then(function(response){
-        document.getElementById('requestResponseContainer').innerHTML = response.data
-        ntvNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
-        ntvNewLink = ntvNewLink.substring(0, 38) + '?autoplay=1'
+    try{
+        document.getElementById('ntvchecking_btn').style.display = 'none';
+        document.getElementById('ntvchecking_statuscontainer').style.display = 'flex'
+        console.log('Checking NTV...')
+        var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
         axios({
             method: 'get',
-            url: linksStorageURL,
-            responseType: 'json'
+            url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/ntv'
         })
         .then(function(response){
-            var links = response.data
-            links.ntv = ntvNewLink
+            document.getElementById('requestResponseContainer').innerHTML = response.data
+            ntvNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+            ntvNewLink = ntvNewLink.substring(0, 38) + '?autoplay=1'
             axios({
-                method: 'put',
+                method: 'get',
                 url: linksStorageURL,
-                data: links
+                responseType: 'json'
             })
-            .then(function(){
-                document.getElementById('ntvLoader').style.display = 'none';
-                document.getElementById('ntvChecked').style.display = 'inline-block';
-                console.log('NTV has been checked!')
-                document.getElementById('requestResponseContainer').innerHTML = '';
+            .then(function(response){
+                var links = response.data
+                links.ntv = ntvNewLink
+                axios({
+                    method: 'put',
+                    url: linksStorageURL,
+                    data: links
+                })
+                .then(function(){
+                    document.getElementById('ntvLoader').style.display = 'none';
+                    document.getElementById('ntvChecked').style.display = 'inline-block';
+                    console.log('NTV has been checked!')
+                    document.getElementById('requestResponseContainer').innerHTML = '';
+                })
             })
         })
-    })
+    }catch{
+        document.getElementById('ntvchecking_btn').style.display = 'none';
+        document.getElementById('ntvchecking_statuscontainer').style.display = 'flex'
+        document.getElementById('ntvLoader').style.display = 'none';
+        document.getElementById('ntvchecking_text').innerText = 'An error occured while checking NTV ❌'
+        console.log('An error occured while trying to check NTV...')
+    }
 }
 
 function tvtokyoChecking(){
-    document.getElementById('tvtokyochecking_btn').style.display = 'none';
-    document.getElementById('tvtokyochecking_statuscontainer').style.display = 'flex'
-    console.log('Checking TV Tokyo...')
-    var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
-    axios({
-        method: 'get',
-        url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tvtokyo'
-    })
-    .then(function(response){
-        document.getElementById('requestResponseContainer').innerHTML = response.data
-        tvtokyoNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
-        tvtokyoNewLink = tvtokyoNewLink.substring(0, 38) + '?autoplay=1'
+    try{
+        document.getElementById('tvtokyochecking_btn').style.display = 'none';
+        document.getElementById('tvtokyochecking_statuscontainer').style.display = 'flex'
+        console.log('Checking TV Tokyo...')
+        var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
         axios({
             method: 'get',
-            url: linksStorageURL,
-            responseType: 'json'
+            url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tvtokyo'
         })
         .then(function(response){
-            var links = response.data
-            links.tvtokyo = tvtokyoNewLink
+            document.getElementById('requestResponseContainer').innerHTML = response.data
+            tvtokyoNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+            tvtokyoNewLink = tvtokyoNewLink.substring(0, 38) + '?autoplay=1'
             axios({
-                method: 'put',
+                method: 'get',
                 url: linksStorageURL,
-                data: links
+                responseType: 'json'
             })
-            .then(function(){
-                document.getElementById('tvtokyoLoader').style.display = 'none';
-                document.getElementById('tvtokyoChecked').style.display = 'inline-block';
-                console.log('TV Tokyo has been checked!')
-                document.getElementById('requestResponseContainer').innerHTML = '';
+            .then(function(response){
+                var links = response.data
+                links.tvtokyo = tvtokyoNewLink
+                axios({
+                    method: 'put',
+                    url: linksStorageURL,
+                    data: links
+                })
+                .then(function(){
+                    document.getElementById('tvtokyoLoader').style.display = 'none';
+                    document.getElementById('tvtokyoChecked').style.display = 'inline-block';
+                    console.log('TV Tokyo has been checked!')
+                    document.getElementById('requestResponseContainer').innerHTML = '';
+                })
             })
         })
-    })
+    }catch{
+        document.getElementById('tvtokyochecking_btn').style.display = 'none';
+        document.getElementById('tvtokyochecking_statuscontainer').style.display = 'flex'
+        document.getElementById('tvtokyoLoader').style.display = 'none';
+        document.getElementById('tvtokyochecking_text').innerText = 'An error occured while checking TV Tokyo ❌'
+        console.log('An error occured while trying to check TV Tokyo...')
+    }
 }
 
 function tvasahiChecking(){
-    document.getElementById('tvasahichecking_btn').style.display = 'none';
-    document.getElementById('tvasahichecking_statuscontainer').style.display = 'flex'
-    console.log('Checking TV Asahi...')
-    var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
-    axios({
-        method: 'get',
-        url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tvasahi'
-    })
-    .then(function(response){
-        document.getElementById('requestResponseContainer').innerHTML = response.data
-        tvasahiNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
-        tvasahiNewLink = tvasahiNewLink.substring(0, 38) + '?autoplay=1'
+    try{
+        document.getElementById('tvasahichecking_btn').style.display = 'none';
+        document.getElementById('tvasahichecking_statuscontainer').style.display = 'flex'
+        console.log('Checking TV Asahi...')
+        var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
         axios({
             method: 'get',
-            url: linksStorageURL,
-            responseType: 'json'
+            url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tvasahi'
         })
         .then(function(response){
-            var links = response.data
-            links.tvasahi = tvasahiNewLink
+            document.getElementById('requestResponseContainer').innerHTML = response.data
+            tvasahiNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+            tvasahiNewLink = tvasahiNewLink.substring(0, 38) + '?autoplay=1'
             axios({
-                method: 'put',
+                method: 'get',
                 url: linksStorageURL,
-                data: links
+                responseType: 'json'
             })
-            .then(function(){
-                document.getElementById('tvasahiLoader').style.display = 'none';
-                document.getElementById('tvasahiChecked').style.display = 'inline-block';
-                console.log('TV Asahi has been checked!')
-                document.getElementById('requestResponseContainer').innerHTML = '';
+            .then(function(response){
+                var links = response.data
+                links.tvasahi = tvasahiNewLink
+                axios({
+                    method: 'put',
+                    url: linksStorageURL,
+                    data: links
+                })
+                .then(function(){
+                    document.getElementById('tvasahiLoader').style.display = 'none';
+                    document.getElementById('tvasahiChecked').style.display = 'inline-block';
+                    console.log('TV Asahi has been checked!')
+                    document.getElementById('requestResponseContainer').innerHTML = '';
+                })
             })
         })
-    })
+    }catch{
+        document.getElementById('tvasahichecking_btn').style.display = 'none';
+        document.getElementById('tvasahichecking_statuscontainer').style.display = 'flex'
+        document.getElementById('tvasahiLoader').style.display = 'none';
+        document.getElementById('tvasahichecking_text').innerText = 'An error occured while checking TV Asahi ❌'
+        console.log('An error occured while trying to check TV Asahi...')
+    }
 }
 
 function fujitvChecking(){
-    document.getElementById('fujitvchecking_btn').style.display = 'none';
-    document.getElementById('fujitvchecking_statuscontainer').style.display = 'flex'
-    console.log('Checking Fuji TV...')
-    var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
-    axios({
-        method: 'get',
-        url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/fujitv'
-    })
-    .then(function(response){
-        document.getElementById('requestResponseContainer').innerHTML = response.data
-        fujitvNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
-        fujitvNewLink = fujitvNewLink.substring(0, 38) + '?autoplay=1'
+    try{
+        document.getElementById('fujitvchecking_btn').style.display = 'none';
+        document.getElementById('fujitvchecking_statuscontainer').style.display = 'flex'
+        console.log('Checking Fuji TV...')
+        var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
         axios({
             method: 'get',
-            url: linksStorageURL,
-            responseType: 'json'
+            url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/fujitv'
         })
         .then(function(response){
-            var links = response.data
-            links.fujitv = fujitvNewLink
+            document.getElementById('requestResponseContainer').innerHTML = response.data
+            fujitvNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+            fujitvNewLink = fujitvNewLink.substring(0, 38) + '?autoplay=1'
             axios({
-                method: 'put',
+                method: 'get',
                 url: linksStorageURL,
-                data: links
+                responseType: 'json'
             })
-            .then(function(){
-                document.getElementById('fujitvLoader').style.display = 'none';
-                document.getElementById('fujitvChecked').style.display = 'inline-block';
-                console.log('Fuji TV has been checked!')
-                document.getElementById('requestResponseContainer').innerHTML = '';
+            .then(function(response){
+                var links = response.data
+                links.fujitv = fujitvNewLink
+                axios({
+                    method: 'put',
+                    url: linksStorageURL,
+                    data: links
+                })
+                .then(function(){
+                    document.getElementById('fujitvLoader').style.display = 'none';
+                    document.getElementById('fujitvChecked').style.display = 'inline-block';
+                    console.log('Fuji TV has been checked!')
+                    document.getElementById('requestResponseContainer').innerHTML = '';
+                })
             })
         })
-    })
+    }catch{
+        document.getElementById('fujitvchecking_btn').style.display = 'none';
+        document.getElementById('fujitvchecking_statuscontainer').style.display = 'flex'
+        document.getElementById('fujitvLoader').style.display = 'none';
+        document.getElementById('fujitvchecking_text').innerText = 'An error occured while checking Fuji TV ❌'
+        console.log('An error occured while trying to check Fuji TV...')
+    }
 }
 
 function tokyomxChecking(){
-    document.getElementById('tokyomxchecking_btn').style.display = 'none';
-    document.getElementById('tokyomxchecking_statuscontainer').style.display = 'flex'
-    console.log('Checking Tokyo MX...')
-    var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
-    axios({
-        method: 'get',
-        url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tokyomx'
-    })
-    .then(function(response){
-        document.getElementById('requestResponseContainer').innerHTML = response.data
-        tokyomxNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
-        tokyomxNewLink = tokyomxNewLink.substring(0, 38) + '?autoplay=1'
+    try{
+        document.getElementById('tokyomxchecking_btn').style.display = 'none';
+        document.getElementById('tokyomxchecking_statuscontainer').style.display = 'flex'
+        console.log('Checking Tokyo MX...')
+        var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
         axios({
             method: 'get',
-            url: linksStorageURL,
-            responseType: 'json'
+            url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tokyomx'
         })
         .then(function(response){
-            var links = response.data
-            links.tokyomx = tokyomxNewLink
+            document.getElementById('requestResponseContainer').innerHTML = response.data
+            tokyomxNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+            tokyomxNewLink = tokyomxNewLink.substring(0, 38) + '?autoplay=1'
             axios({
-                method: 'put',
+                method: 'get',
                 url: linksStorageURL,
-                data: links
+                responseType: 'json'
             })
-            .then(function(){
-                document.getElementById('tokyomxLoader').style.display = 'none';
-                document.getElementById('tokyomxChecked').style.display = 'inline-block';
-                console.log('Tokyo MX has been checked!')
-                document.getElementById('requestResponseContainer').innerHTML = '';
+            .then(function(response){
+                var links = response.data
+                links.tokyomx = tokyomxNewLink
+                axios({
+                    method: 'put',
+                    url: linksStorageURL,
+                    data: links
+                })
+                .then(function(){
+                    document.getElementById('tokyomxLoader').style.display = 'none';
+                    document.getElementById('tokyomxChecked').style.display = 'inline-block';
+                    console.log('Tokyo MX has been checked!')
+                    document.getElementById('requestResponseContainer').innerHTML = '';
+                })
             })
         })
-    })
+    }catch{
+        document.getElementById('tokyomxchecking_btn').style.display = 'none';
+        document.getElementById('tokyomxchecking_statuscontainer').style.display = 'flex'
+        document.getElementById('tokyomxLoader').style.display = 'none';
+        document.getElementById('tokyomxchecking_text').innerText = 'An error occured while checking Tokyo MX, please try VK ❌'
+        console.log('An error occured while trying to check Tokyo MX...')
+    }
 }
 
 function tbsChecking(){
-    document.getElementById('tbschecking_btn').style.display = 'none';
-    document.getElementById('tbschecking_statuscontainer').style.display = 'flex'
-    console.log('Checking TBS...')
-    var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
-    axios({
-        method: 'get',
-        url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tbs'
-    })
-    .then(function(response){
-        document.getElementById('requestResponseContainer').innerHTML = response.data
-        tbsNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
-        tbsNewLink = tbsNewLink.substring(0, 38) + '?autoplay=1'
+    try{
+        document.getElementById('tbschecking_btn').style.display = 'none';
+        document.getElementById('tbschecking_statuscontainer').style.display = 'flex'
+        console.log('Checking TBS...')
+        var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
         axios({
             method: 'get',
-            url: linksStorageURL,
-            responseType: 'json'
+            url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tbs'
         })
         .then(function(response){
-            var links = response.data
-            links.tbs = tbsNewLink
+            document.getElementById('requestResponseContainer').innerHTML = response.data
+            tbsNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+            tbsNewLink = tbsNewLink.substring(0, 38) + '?autoplay=1'
             axios({
-                method: 'put',
+                method: 'get',
                 url: linksStorageURL,
-                data: links
+                responseType: 'json'
             })
-            .then(function(){
-                document.getElementById('tbsLoader').style.display = 'none';
-                document.getElementById('tbsChecked').style.display = 'inline-block';
-                console.log('TBS has been checked!')
-                document.getElementById('requestResponseContainer').innerHTML = '';
+            .then(function(response){
+                var links = response.data
+                links.tbs = tbsNewLink
+                axios({
+                    method: 'put',
+                    url: linksStorageURL,
+                    data: links
+                })
+                .then(function(){
+                    document.getElementById('tbsLoader').style.display = 'none';
+                    document.getElementById('tbsChecked').style.display = 'inline-block';
+                    console.log('TBS has been checked!')
+                    document.getElementById('requestResponseContainer').innerHTML = '';
+                })
             })
         })
-    })
+    }catch{
+        document.getElementById('tbschecking_btn').style.display = 'none';
+        document.getElementById('tbschecking_statuscontainer').style.display = 'flex'
+        document.getElementById('tbsLoader').style.display = 'none';
+        document.getElementById('tbschecking_text').innerText = 'An error occured while checking TBS with mov3, please try VK ❌'
+        console.log('An error occured while trying to check TBS with mov3...')
+    }
 }
 
 function nhkChecking(){
-    document.getElementById('nhkchecking_btn').style.display = 'none';
-    document.getElementById('nhkchecking_statuscontainer').style.display = 'flex'
-    console.log('Checking NHK...')
-    var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
-    axios({
-        method: 'get',
-        url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/nhk'
-    })
-    .then(function(response){
-        document.getElementById('requestResponseContainer').innerHTML = response.data
-        nhkNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
-        nhkNewLink = nhkNewLink.substring(0, 38) + '?autoplay=1'
+    try{
+        document.getElementById('nhkchecking_btn').style.display = 'none';
+        document.getElementById('nhkchecking_statuscontainer').style.display = 'flex'
+        console.log('Checking NHK...')
+        var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
         axios({
             method: 'get',
-            url: linksStorageURL,
-            responseType: 'json'
+            url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/nhk'
         })
         .then(function(response){
-            var links = response.data
-            links.nhk = nhkNewLink
+            document.getElementById('requestResponseContainer').innerHTML = response.data
+            nhkNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+            nhkNewLink = nhkNewLink.substring(0, 38) + '?autoplay=1'
             axios({
-                method: 'put',
+                method: 'get',
                 url: linksStorageURL,
-                data: links
+                responseType: 'json'
             })
-            .then(function(){
-                document.getElementById('nhkLoader').style.display = 'none';
-                document.getElementById('nhkChecked').style.display = 'inline-block';
-                console.log('NHK has been checked!')
-                document.getElementById('requestResponseContainer').innerHTML = '';
+            .then(function(response){
+                var links = response.data
+                links.nhk = nhkNewLink
+                axios({
+                    method: 'put',
+                    url: linksStorageURL,
+                    data: links
+                })
+                .then(function(){
+                    document.getElementById('nhkLoader').style.display = 'none';
+                    document.getElementById('nhkChecked').style.display = 'inline-block';
+                    console.log('NHK has been checked!')
+                    document.getElementById('requestResponseContainer').innerHTML = '';
+                })
             })
         })
-    })
+    }catch{
+        document.getElementById('nhkchecking_btn').style.display = 'none';
+        document.getElementById('nhkchecking_statuscontainer').style.display = 'flex'
+        document.getElementById('nhkLoader').style.display = 'none';
+        document.getElementById('nhkchecking_text').innerText = 'An error occured while checking NHK ❌'
+        console.log('An error occured while trying to check NHK...')
+    }
 }
+
+
 
 function getVkToken(){
     window.open("https://oauth.vk.com/authorize?client_id=7374576&display=page&redirect_uri=https://dev-japanterebi.netlify.app/redirect/vk/token&scope=video&response_type=token&v=5.103", '_self')
 }
-
 
 function atxChecking(){
     try{
