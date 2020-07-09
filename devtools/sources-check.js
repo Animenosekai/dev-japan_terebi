@@ -529,71 +529,75 @@ function getVkToken(){
 
 
 function atxChecking(){
-    if(window.localStorage.getItem('vkAPIToken_accessToken') !== null){
-        var time = (Math.abs(new Date() - new Date(window.localStorage.getItem("vkAPIToken_tokenCreationDate")))/1000) + 120
-        if(time>window.localStorage.getItem('vkAPIToken_expiration')){
-            getVkToken()
-        }else{
-            document.getElementById('atxchecking_btn').style.display = 'none';
-            document.getElementById('atxchecking_statuscontainer').style.display = 'flex'
-            console.log('Checking AT-X...')
-            var owner_id = '-192507857'
-            var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
-            requestURL = 'https://api.vk.com/method/video.get?owner_id='+ owner_id + '&count=3&offset=0&extended=1&access_token=' + window.localStorage.getItem('vkAPIToken_accessToken') + '&v=5.103'
-            $.ajax ({
-                url: requestURL,
-                type: 'GET',
-                dataType: 'jsonp',
-                crossDomain: true,
-                success: function (data){
-                    console.log(data)
-                    if (data.response.items[0].title.includes('ATX')) {
-                    var externalPlayer = data.response.items[0].player + '&autoplay=1'
-                    axios({
-                        method: 'get',
-                        url: linksStorageURL,
-                        responseType: 'json'
-                    })
-                    .then(function(response){
-                        var links = response.data
-                        links.atx = externalPlayer
-                        axios({
-                            method: 'put',
-                            url: linksStorageURL,
-                            data: links
-                        })
-                        .then(function(){
+    try{
+        if(window.localStorage.getItem('vkAPIToken_accessToken') !== null){
+            var time = (Math.abs(new Date() - new Date(window.localStorage.getItem("vkAPIToken_tokenCreationDate")))/1000) + 120
+            if(time>window.localStorage.getItem('vkAPIToken_expiration')){
+                getVkToken()
+            }else{
+                document.getElementById('atxchecking_btn').style.display = 'none';
+                document.getElementById('atxchecking_statuscontainer').style.display = 'flex'
+                console.log('Checking AT-X on VK...')
+                var owner_id = '-177082369'
+                var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
+                requestURL = 'https://api.vk.com/method/video.get?owner_id='+ owner_id + '&count=3&offset=0&access_token=' + window.localStorage.getItem('vkAPIToken_accessToken') + '&v=5.120'
+                $.ajax ({
+                    url: requestURL,
+                    type: 'GET',
+                    dataType: 'jsonp',
+                    crossDomain: true,
+                    success: function (data){
+                        console.log(data)
+                        var found = false
+                        for(item in data.response.items){
+                            try{
+                                if (data.response.items[item].live == 1){
+                                    if (data.response.items[item].title.includes('AT-X')){
+                                        found = true
+                                        var externalPlayer = data.response.items[item].player + '&autoplay=1'
+                                        axios({
+                                            method: 'get',
+                                            url: linksStorageURL,
+                                            responseType: 'json'
+                                        })
+                                        .then(function(response){
+                                            var links = response.data
+                                            links.tbs = externalPlayer
+                                            axios({
+                                                method: 'put',
+                                                url: linksStorageURL,
+                                                data: links
+                                            })
+                                            .then(function(){
+                                                document.getElementById('atxLoader').style.display = 'none';
+                                                document.getElementById('atxChecked').style.display = 'inline-block';
+                                                console.log('AT-X has been found on VK!')
+                                            })
+                                        })
+                                    }
+                                }else{
+                                    console.log('Not live, ignoring...')
+                                }
+                            }catch{
+                                console.log('Not live, ignoring...')
+                            }
+                        }
+                        if (found == false){
                             document.getElementById('atxLoader').style.display = 'none';
-                            document.getElementById('atxChecked').style.display = 'inline-block';
-                            console.log('AT-X has been checked!')
-                        })
-                    })
-                    }else{
-                        var externalPlayer = data.response.items[1].player + '&autoplay=1'
-                        axios({
-                            method: 'get',
-                            url: linksStorageURL,
-                            responseType: 'json'
-                        })
-                        .then(function(response){
-                            var links = response.data
-                            links.atx = externalPlayer
-                            axios({
-                                method: 'put',
-                                url: linksStorageURL,
-                                data: links
-                            })
-                            .then(function(){
-                                document.getElementById('atxLoader').style.display = 'none';
-                                document.getElementById('atxChecked').style.display = 'inline-block';
-                                console.log('AT-X has been checked!')
-                            })
-                        })
-                    }
-            }})
+                            document.getElementById('atxchecking_text').innerText = 'No AT-X source on VK ❌'
+                            console.log('No AT-X on VK...')
+                        }
+                }})
+            }
+        }else{
+            getVkToken()
         }
-    }else{
-        getVkToken()
+    }catch{
+        document.getElementById('atxchecking_btn').style.display = 'none';
+        document.getElementById('atxchecking_statuscontainer').style.display = 'flex'
+        document.getElementById('atxLoader').style.display = 'none';
+        document.getElementById('atxchecking_text').innerText = 'An error occured while checking for AT-X on VK ❌'
+        console.log('An error occured while trying to check for AT-X on VK...')
     }
 }
 
