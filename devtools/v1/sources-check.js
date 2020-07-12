@@ -44,7 +44,7 @@ function checkAll(){
     document.getElementById('nhkchecking_statuscontainer').style.display = 'flex'
     console.log('Checking everything...')
     console.log('Checking NTV...')
-    var linksStorageURL = 'https://animenosekai.herokuapp.com/japanterebi/api/channels'
+    var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
     axios({
         method: 'get',
         url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/ntv'
@@ -53,149 +53,205 @@ function checkAll(){
         document.getElementById('requestResponseContainer').innerHTML = response.data
         ntvNewLink = document.getElementById('su-ivp').src
         ntvNewLink = ntvNewLink.substring(0, 38) + '?autoplay=1'
-        links = {'ntv': ntvNewLink}
         axios({
-            method: 'post',
+            method: 'get',
             url: linksStorageURL,
-            data: links
+            responseType: 'json'
         })
-        .then(function(){
-            document.getElementById('ntvLoader').style.display = 'none';
-            document.getElementById('ntvChecked').style.display = 'inline-block';
-            console.log('NTV has been checked!')
-            document.getElementById('requestResponseContainer').innerHTML = '';
-
-            console.log('Checking TV Tokyo...')
-            var linksStorageURL = 'https://animenosekai.herokuapp.com/japanterebi/api/channels'
+        .then(function(response){
+            var links = response.data
+            links.ntv = ntvNewLink
             axios({
-                method: 'get',
-                url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tvtokyo'
+                method: 'put',
+                url: linksStorageURL,
+                data: links
             })
-            .then(function(response){
-                document.getElementById('requestResponseContainer').innerHTML = response.data
-                tvtokyoNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
-                tvtokyoNewLink = tvtokyoNewLink.substring(0, 38) + '?autoplay=1'
-                links = {'tvtokyo': tvtokyoNewLink} 
-                axios({
-                    method: 'post',
-                    url: linksStorageURL,
-                    data: links
-                })
-                .then(function(){
-                    document.getElementById('tvtokyoLoader').style.display = 'none';
-                    document.getElementById('tvtokyoChecked').style.display = 'inline-block';
-                    console.log('TV Tokyo has been checked!')
-                    document.getElementById('requestResponseContainer').innerHTML = '';
+            .then(function(){
+                document.getElementById('ntvLoader').style.display = 'none';
+                document.getElementById('ntvChecked').style.display = 'inline-block';
+                console.log('NTV has been checked!')
+                document.getElementById('requestResponseContainer').innerHTML = '';
 
-                    console.log('Checking TV Asahi...')
-                    var linksStorageURL = 'https://animenosekai.herokuapp.com/japanterebi/api/channels'
+                console.log('Checking TV Tokyo...')
+                var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
+                axios({
+                    method: 'get',
+                    url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tvtokyo'
+                })
+                .then(function(response){
+                    document.getElementById('requestResponseContainer').innerHTML = response.data
+                    tvtokyoNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+                    tvtokyoNewLink = tvtokyoNewLink.substring(0, 38) + '?autoplay=1'
                     axios({
                         method: 'get',
-                        url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tvasahi'
+                        url: linksStorageURL,
+                        responseType: 'json'
                     })
                     .then(function(response){
-                        document.getElementById('requestResponseContainer').innerHTML = response.data
-                        tvasahiNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
-                        tvasahiNewLink = tvasahiNewLink.substring(0, 38) + '?autoplay=1'
-                        links = {'tvasahi': tvasahiNewLink}
+                        var links = response.data
+                        links.tvtokyo = tvtokyoNewLink
                         axios({
-                            method: 'post',
+                            method: 'put',
                             url: linksStorageURL,
                             data: links
                         })
                         .then(function(){
-                            document.getElementById('tvasahiLoader').style.display = 'none';
-                            document.getElementById('tvasahiChecked').style.display = 'inline-block';
-                            console.log('TV Asahi has been checked!')
+                            document.getElementById('tvtokyoLoader').style.display = 'none';
+                            document.getElementById('tvtokyoChecked').style.display = 'inline-block';
+                            console.log('TV Tokyo has been checked!')
                             document.getElementById('requestResponseContainer').innerHTML = '';
 
-                            console.log('Checking Fuji TV...')
-                            var linksStorageURL = 'https://animenosekai.herokuapp.com/japanterebi/api/channels'
+                            console.log('Checking TV Asahi...')
+                            var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
                             axios({
                                 method: 'get',
-                                url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/fujitv'
+                                url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tvasahi'
                             })
                             .then(function(response){
                                 document.getElementById('requestResponseContainer').innerHTML = response.data
-                                fujitvNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
-                                fujitvNewLink = fujitvNewLink.substring(0, 38) + '?autoplay=1'
-                                links = {'fujitv': fujitvNewLink} 
+                                tvasahiNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+                                tvasahiNewLink = tvasahiNewLink.substring(0, 38) + '?autoplay=1'
                                 axios({
-                                    method: 'post',
+                                    method: 'get',
                                     url: linksStorageURL,
-                                    data: links
+                                    responseType: 'json'
                                 })
-                                .then(function(){
-                                    document.getElementById('fujitvLoader').style.display = 'none';
-                                    document.getElementById('fujitvChecked').style.display = 'inline-block';
-                                    console.log('Fuji TV has been checked!')
-                                    document.getElementById('requestResponseContainer').innerHTML = '';
-
-                                    console.log('Checking Tokyo MX...')
-                                    var linksStorageURL = 'https://animenosekai.herokuapp.com/japanterebi/api/channels'
+                                .then(function(response){
+                                    var links = response.data
+                                    links.tvasahi = tvasahiNewLink
                                     axios({
-                                        method: 'get',
-                                        url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tokyomx'
+                                        method: 'put',
+                                        url: linksStorageURL,
+                                        data: links
                                     })
-                                    .then(function(response){
-                                        document.getElementById('requestResponseContainer').innerHTML = response.data
-                                        tokyomxNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
-                                        tokyomxNewLink = tokyomxNewLink.substring(0, 38) + '?autoplay=1'
-                                        links = {'tokyomx' : tokyomxNewLink, 'tokyomx_mov3': tokyomxNewLink}
-                                        axios({
-                                            method: 'post',
-                                            url: linksStorageURL,
-                                            data: links
-                                        })
-                                        .then(function(){
-                                            document.getElementById('tokyomxLoader').style.display = 'none';
-                                            document.getElementById('tokyomxChecked').style.display = 'inline-block';
-                                            console.log('Tokyo MX has been checked!')
-                                            document.getElementById('requestResponseContainer').innerHTML = '';
+                                    .then(function(){
+                                        document.getElementById('tvasahiLoader').style.display = 'none';
+                                        document.getElementById('tvasahiChecked').style.display = 'inline-block';
+                                        console.log('TV Asahi has been checked!')
+                                        document.getElementById('requestResponseContainer').innerHTML = '';
 
-                                            console.log('Checking TBS...')
-                                            var linksStorageURL = 'https://animenosekai.herokuapp.com/japanterebi/api/channels'
+                                        console.log('Checking Fuji TV...')
+                                        var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
+                                        axios({
+                                            method: 'get',
+                                            url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/fujitv'
+                                        })
+                                        .then(function(response){
+                                            document.getElementById('requestResponseContainer').innerHTML = response.data
+                                            fujitvNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+                                            fujitvNewLink = fujitvNewLink.substring(0, 38) + '?autoplay=1'
                                             axios({
                                                 method: 'get',
-                                                url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tbs'
+                                                url: linksStorageURL,
+                                                responseType: 'json'
                                             })
                                             .then(function(response){
-                                                document.getElementById('requestResponseContainer').innerHTML = response.data
-                                                tbsNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
-                                                tbsNewLink = tbsNewLink.substring(0, 38) + '?autoplay=1'
-                                                links = {"tbs": tbsNewLink, 'tbs_mov3': tbsNewLink}
+                                                var links = response.data
+                                                links.fujitv = fujitvNewLink
                                                 axios({
-                                                    method: 'post',
+                                                    method: 'put',
                                                     url: linksStorageURL,
                                                     data: links
                                                 })
                                                 .then(function(){
-                                                    document.getElementById('tbsLoader').style.display = 'none';
-                                                    document.getElementById('tbsChecked').style.display = 'inline-block';
-                                                    console.log('TBS has been checked!')
+                                                    document.getElementById('fujitvLoader').style.display = 'none';
+                                                    document.getElementById('fujitvChecked').style.display = 'inline-block';
+                                                    console.log('Fuji TV has been checked!')
                                                     document.getElementById('requestResponseContainer').innerHTML = '';
 
-                                                    console.log('Checking NHK...')
-                                                    var linksStorageURL = 'https://animenosekai.herokuapp.com/japanterebi/api/channels'
+                                                    console.log('Checking Tokyo MX...')
+                                                    var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
                                                     axios({
                                                         method: 'get',
-                                                        url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/nhk'
+                                                        url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tokyomx'
                                                     })
                                                     .then(function(response){
                                                         document.getElementById('requestResponseContainer').innerHTML = response.data
-                                                        nhkNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
-                                                        nhkNewLink = nhkNewLink.substring(0, 38) + '?autoplay=1'
-                                                        links = {'nhk': nhkNewLink}
+                                                        tokyomxNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+                                                        tokyomxNewLink = tokyomxNewLink.substring(0, 38) + '?autoplay=1'
                                                         axios({
-                                                            method: 'post',
+                                                            method: 'get',
                                                             url: linksStorageURL,
-                                                            data: links
+                                                            responseType: 'json'
                                                         })
-                                                        .then(function(){
-                                                            document.getElementById('nhkLoader').style.display = 'none';
-                                                            document.getElementById('nhkChecked').style.display = 'inline-block';
-                                                            console.log('NHK has been checked!')
-                                                            document.getElementById('requestResponseContainer').innerHTML = '';
+                                                        .then(function(response){
+                                                            var links = response.data
+                                                            links.tokyomx = tokyomxNewLink
+                                                            axios({
+                                                                method: 'put',
+                                                                url: linksStorageURL,
+                                                                data: links
+                                                            })
+                                                            .then(function(){
+                                                                document.getElementById('tokyomxLoader').style.display = 'none';
+                                                                document.getElementById('tokyomxChecked').style.display = 'inline-block';
+                                                                console.log('Tokyo MX has been checked!')
+                                                                document.getElementById('requestResponseContainer').innerHTML = '';
+
+                                                                console.log('Checking TBS...')
+                                                                var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
+                                                                axios({
+                                                                    method: 'get',
+                                                                    url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tbs'
+                                                                })
+                                                                .then(function(response){
+                                                                    document.getElementById('requestResponseContainer').innerHTML = response.data
+                                                                    tbsNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+                                                                    tbsNewLink = tbsNewLink.substring(0, 38) + '?autoplay=1'
+                                                                    axios({
+                                                                        method: 'get',
+                                                                        url: linksStorageURL,
+                                                                        responseType: 'json'
+                                                                    })
+                                                                    .then(function(response){
+                                                                        var links = response.data
+                                                                        links.tbs = tbsNewLink
+                                                                        axios({
+                                                                            method: 'put',
+                                                                            url: linksStorageURL,
+                                                                            data: links
+                                                                        })
+                                                                        .then(function(){
+                                                                            document.getElementById('tbsLoader').style.display = 'none';
+                                                                            document.getElementById('tbsChecked').style.display = 'inline-block';
+                                                                            console.log('TBS has been checked!')
+                                                                            document.getElementById('requestResponseContainer').innerHTML = '';
+
+                                                                            console.log('Checking NHK...')
+                                                                            var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
+                                                                            axios({
+                                                                                method: 'get',
+                                                                                url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/nhk'
+                                                                            })
+                                                                            .then(function(response){
+                                                                                document.getElementById('requestResponseContainer').innerHTML = response.data
+                                                                                nhkNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
+                                                                                nhkNewLink = nhkNewLink.substring(0, 38) + '?autoplay=1'
+                                                                                axios({
+                                                                                    method: 'get',
+                                                                                    url: linksStorageURL,
+                                                                                    responseType: 'json'
+                                                                                })
+                                                                                .then(function(response){
+                                                                                    var links = response.data
+                                                                                    links.nhk = nhkNewLink
+                                                                                    axios({
+                                                                                        method: 'put',
+                                                                                        url: linksStorageURL,
+                                                                                        data: links
+                                                                                    })
+                                                                                    .then(function(){
+                                                                                        document.getElementById('nhkLoader').style.display = 'none';
+                                                                                        document.getElementById('nhkChecked').style.display = 'inline-block';
+                                                                                        console.log('NHK has been checked!')
+                                                                                        document.getElementById('requestResponseContainer').innerHTML = '';
+                                                                                    })
+                                                                                })
+                                                                            })
+                                                                        })
+                                                                    })
+                                                                })
+                                                            })
                                                         })
                                                     })
                                                 })
@@ -220,7 +276,7 @@ function ntvChecking(){
         document.getElementById('ntvchecking_btn').style.display = 'none';
         document.getElementById('ntvchecking_statuscontainer').style.display = 'flex'
         console.log('Checking NTV...')
-        var linksStorageURL = 'https://animenosekai.herokuapp.com/japanterebi/api/channels'
+        var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
         axios({
             method: 'get',
             url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/ntv'
@@ -229,17 +285,25 @@ function ntvChecking(){
             document.getElementById('requestResponseContainer').innerHTML = response.data
             ntvNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
             ntvNewLink = ntvNewLink.substring(0, 38) + '?autoplay=1'
-            links = {'ntv': ntvNewLink} 
             axios({
-                method: 'post',
+                method: 'get',
                 url: linksStorageURL,
-                data: links
+                responseType: 'json'
             })
-            .then(function(){
-                document.getElementById('ntvLoader').style.display = 'none';
-                document.getElementById('ntvChecked').style.display = 'inline-block';
-                console.log('NTV has been checked!')
-                document.getElementById('requestResponseContainer').innerHTML = '';
+            .then(function(response){
+                var links = response.data
+                links.ntv = ntvNewLink
+                axios({
+                    method: 'put',
+                    url: linksStorageURL,
+                    data: links
+                })
+                .then(function(){
+                    document.getElementById('ntvLoader').style.display = 'none';
+                    document.getElementById('ntvChecked').style.display = 'inline-block';
+                    console.log('NTV has been checked!')
+                    document.getElementById('requestResponseContainer').innerHTML = '';
+                })
             })
         })
     }catch{
@@ -256,7 +320,7 @@ function tvtokyoChecking(){
         document.getElementById('tvtokyochecking_btn').style.display = 'none';
         document.getElementById('tvtokyochecking_statuscontainer').style.display = 'flex'
         console.log('Checking TV Tokyo...')
-        var linksStorageURL = 'https://animenosekai.herokuapp.com/japanterebi/api/channels'
+        var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
         axios({
             method: 'get',
             url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tvtokyo'
@@ -265,17 +329,25 @@ function tvtokyoChecking(){
             document.getElementById('requestResponseContainer').innerHTML = response.data
             tvtokyoNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
             tvtokyoNewLink = tvtokyoNewLink.substring(0, 38) + '?autoplay=1'
-            links = {'tvtokyo': tvtokyoNewLink}
             axios({
-                method: 'post',
+                method: 'get',
                 url: linksStorageURL,
-                data: links
+                responseType: 'json'
             })
-            .then(function(){
-                document.getElementById('tvtokyoLoader').style.display = 'none';
-                document.getElementById('tvtokyoChecked').style.display = 'inline-block';
-                console.log('TV Tokyo has been checked!')
-                document.getElementById('requestResponseContainer').innerHTML = '';
+            .then(function(response){
+                var links = response.data
+                links.tvtokyo = tvtokyoNewLink
+                axios({
+                    method: 'put',
+                    url: linksStorageURL,
+                    data: links
+                })
+                .then(function(){
+                    document.getElementById('tvtokyoLoader').style.display = 'none';
+                    document.getElementById('tvtokyoChecked').style.display = 'inline-block';
+                    console.log('TV Tokyo has been checked!')
+                    document.getElementById('requestResponseContainer').innerHTML = '';
+                })
             })
         })
     }catch{
@@ -292,7 +364,7 @@ function tvasahiChecking(){
         document.getElementById('tvasahichecking_btn').style.display = 'none';
         document.getElementById('tvasahichecking_statuscontainer').style.display = 'flex'
         console.log('Checking TV Asahi...')
-        var linksStorageURL = 'https://animenosekai.herokuapp.com/japanterebi/api/channels'
+        var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
         axios({
             method: 'get',
             url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tvasahi'
@@ -301,17 +373,25 @@ function tvasahiChecking(){
             document.getElementById('requestResponseContainer').innerHTML = response.data
             tvasahiNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
             tvasahiNewLink = tvasahiNewLink.substring(0, 38) + '?autoplay=1'
-            links = {'tvasahi': tvasahiNewLink}
             axios({
-                method: 'post',
+                method: 'get',
                 url: linksStorageURL,
-                data: links
+                responseType: 'json'
             })
-            .then(function(){
-                document.getElementById('tvasahiLoader').style.display = 'none';
-                document.getElementById('tvasahiChecked').style.display = 'inline-block';
-                console.log('TV Asahi has been checked!')
-                document.getElementById('requestResponseContainer').innerHTML = '';
+            .then(function(response){
+                var links = response.data
+                links.tvasahi = tvasahiNewLink
+                axios({
+                    method: 'put',
+                    url: linksStorageURL,
+                    data: links
+                })
+                .then(function(){
+                    document.getElementById('tvasahiLoader').style.display = 'none';
+                    document.getElementById('tvasahiChecked').style.display = 'inline-block';
+                    console.log('TV Asahi has been checked!')
+                    document.getElementById('requestResponseContainer').innerHTML = '';
+                })
             })
         })
     }catch{
@@ -328,7 +408,7 @@ function fujitvChecking(){
         document.getElementById('fujitvchecking_btn').style.display = 'none';
         document.getElementById('fujitvchecking_statuscontainer').style.display = 'flex'
         console.log('Checking Fuji TV...')
-        var linksStorageURL = 'https://animenosekai.herokuapp.com/japanterebi/api/channels'
+        var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
         axios({
             method: 'get',
             url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/fujitv'
@@ -337,17 +417,25 @@ function fujitvChecking(){
             document.getElementById('requestResponseContainer').innerHTML = response.data
             fujitvNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
             fujitvNewLink = fujitvNewLink.substring(0, 38) + '?autoplay=1'
-            links = {'fujitv': fujitvNewLink} 
             axios({
-                method: 'post',
+                method: 'get',
                 url: linksStorageURL,
-                data: links
+                responseType: 'json'
             })
-            .then(function(){
-                document.getElementById('fujitvLoader').style.display = 'none';
-                document.getElementById('fujitvChecked').style.display = 'inline-block';
-                console.log('Fuji TV has been checked!')
-                document.getElementById('requestResponseContainer').innerHTML = '';
+            .then(function(response){
+                var links = response.data
+                links.fujitv = fujitvNewLink
+                axios({
+                    method: 'put',
+                    url: linksStorageURL,
+                    data: links
+                })
+                .then(function(){
+                    document.getElementById('fujitvLoader').style.display = 'none';
+                    document.getElementById('fujitvChecked').style.display = 'inline-block';
+                    console.log('Fuji TV has been checked!')
+                    document.getElementById('requestResponseContainer').innerHTML = '';
+                })
             })
         })
     }catch{
@@ -364,7 +452,7 @@ function tokyomxChecking(){
         document.getElementById('tokyomxchecking_btn').style.display = 'none';
         document.getElementById('tokyomxchecking_statuscontainer').style.display = 'flex'
         console.log('Checking Tokyo MX...')
-        var linksStorageURL = 'https://animenosekai.herokuapp.com/japanterebi/api/channels'
+        var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
         axios({
             method: 'get',
             url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tokyomx'
@@ -373,17 +461,25 @@ function tokyomxChecking(){
             document.getElementById('requestResponseContainer').innerHTML = response.data
             tokyomxNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
             tokyomxNewLink = tokyomxNewLink.substring(0, 38) + '?autoplay=1'
-            links = {'tokyomx': tokyomxNewLink, "tokyomx_mov3": tokyomxNewLink}
             axios({
-                method: 'post',
+                method: 'get',
                 url: linksStorageURL,
-                data: links
+                responseType: 'json'
             })
-            .then(function(){
-                document.getElementById('tokyomxLoader').style.display = 'none';
-                document.getElementById('tokyomxChecked').style.display = 'inline-block';
-                console.log('Tokyo MX has been checked!')
-                document.getElementById('requestResponseContainer').innerHTML = '';
+            .then(function(response){
+                var links = response.data
+                links.tokyomx = tokyomxNewLink
+                axios({
+                    method: 'put',
+                    url: linksStorageURL,
+                    data: links
+                })
+                .then(function(){
+                    document.getElementById('tokyomxLoader').style.display = 'none';
+                    document.getElementById('tokyomxChecked').style.display = 'inline-block';
+                    console.log('Tokyo MX has been checked!')
+                    document.getElementById('requestResponseContainer').innerHTML = '';
+                })
             })
         })
     }catch{
@@ -400,7 +496,7 @@ function tbsChecking(){
         document.getElementById('tbschecking_btn').style.display = 'none';
         document.getElementById('tbschecking_statuscontainer').style.display = 'flex'
         console.log('Checking TBS...')
-        var linksStorageURL = 'https://animenosekai.herokuapp.com/japanterebi/api/channels'
+        var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
         axios({
             method: 'get',
             url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tbs'
@@ -409,17 +505,25 @@ function tbsChecking(){
             document.getElementById('requestResponseContainer').innerHTML = response.data
             tbsNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
             tbsNewLink = tbsNewLink.substring(0, 38) + '?autoplay=1'
-            links = {'tbs': tbsNewLink, 'tbs_mov3': tbsNewLink}
             axios({
-                method: 'post',
+                method: 'get',
                 url: linksStorageURL,
-                data: links
+                responseType: 'json'
             })
-            .then(function(){
-                document.getElementById('tbsLoader').style.display = 'none';
-                document.getElementById('tbsChecked').style.display = 'inline-block';
-                console.log('TBS has been checked!')
-                document.getElementById('requestResponseContainer').innerHTML = '';
+            .then(function(response){
+                var links = response.data
+                links.tbs = tbsNewLink
+                axios({
+                    method: 'put',
+                    url: linksStorageURL,
+                    data: links
+                })
+                .then(function(){
+                    document.getElementById('tbsLoader').style.display = 'none';
+                    document.getElementById('tbsChecked').style.display = 'inline-block';
+                    console.log('TBS has been checked!')
+                    document.getElementById('requestResponseContainer').innerHTML = '';
+                })
             })
         })
     }catch{
@@ -436,7 +540,7 @@ function nhkChecking(){
         document.getElementById('nhkchecking_btn').style.display = 'none';
         document.getElementById('nhkchecking_statuscontainer').style.display = 'flex'
         console.log('Checking NHK...')
-        var linksStorageURL = 'https://animenosekai.herokuapp.com/japanterebi/api/channels'
+        var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
         axios({
             method: 'get',
             url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/nhk'
@@ -445,17 +549,25 @@ function nhkChecking(){
             document.getElementById('requestResponseContainer').innerHTML = response.data
             nhkNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
             nhkNewLink = nhkNewLink.substring(0, 38) + '?autoplay=1'
-            links = {'nhk': nhkNewLink}
             axios({
-                method: 'post',
+                method: 'get',
                 url: linksStorageURL,
-                data: links
+                responseType: 'json'
             })
-            .then(function(){
-                document.getElementById('nhkLoader').style.display = 'none';
-                document.getElementById('nhkChecked').style.display = 'inline-block';
-                console.log('NHK has been checked!')
-                document.getElementById('requestResponseContainer').innerHTML = '';
+            .then(function(response){
+                var links = response.data
+                links.nhk = nhkNewLink
+                axios({
+                    method: 'put',
+                    url: linksStorageURL,
+                    data: links
+                })
+                .then(function(){
+                    document.getElementById('nhkLoader').style.display = 'none';
+                    document.getElementById('nhkChecked').style.display = 'inline-block';
+                    console.log('NHK has been checked!')
+                    document.getElementById('requestResponseContainer').innerHTML = '';
+                })
             })
         })
     }catch{
@@ -484,7 +596,7 @@ function atxChecking(){
                 document.getElementById('atxchecking_statuscontainer').style.display = 'flex'
                 console.log('Checking AT-X on VK...')
                 var owner_id = '-177082369'
-                var linksStorageURL = 'https://animenosekai.herokuapp.com/japanterebi/api/channels'
+                var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
                 requestURL = 'https://api.vk.com/method/video.get?owner_id='+ owner_id + '&count=3&offset=0&access_token=' + window.localStorage.getItem('vkAPIToken_accessToken') + '&v=5.120'
                 $.ajax ({
                     url: requestURL,
@@ -500,16 +612,24 @@ function atxChecking(){
                                     if (data.response.items[item].title.includes('AT-X')){
                                         found = true
                                         var externalPlayer = data.response.items[item].player + '&autoplay=1'
-                                        links = {'atx': externalPlayer}
                                         axios({
-                                            method: 'post',
+                                            method: 'get',
                                             url: linksStorageURL,
-                                            data: links
+                                            responseType: 'json'
                                         })
-                                        .then(function(){
-                                            document.getElementById('atxLoader').style.display = 'none';
-                                            document.getElementById('atxChecked').style.display = 'inline-block';
-                                            console.log('AT-X has been found on VK!')
+                                        .then(function(response){
+                                            var links = response.data
+                                            links.tbs = externalPlayer
+                                            axios({
+                                                method: 'put',
+                                                url: linksStorageURL,
+                                                data: links
+                                            })
+                                            .then(function(){
+                                                document.getElementById('atxLoader').style.display = 'none';
+                                                document.getElementById('atxChecked').style.display = 'inline-block';
+                                                console.log('AT-X has been found on VK!')
+                                            })
                                         })
                                     }
                                 }else{
@@ -549,7 +669,7 @@ function tbs_vk_Checking(){
                 document.getElementById('tbs_vk_checking_statuscontainer').style.display = 'flex'
                 console.log('Checking TBS on VK...')
                 var owner_id = '-177082369'
-                var linksStorageURL = 'https://animenosekai.herokuapp.com/japanterebi/api/channels'
+                var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
                 requestURL = 'https://api.vk.com/method/video.get?owner_id='+ owner_id + '&count=3&offset=0&access_token=' + window.localStorage.getItem('vkAPIToken_accessToken') + '&v=5.120'
                 $.ajax ({
                     url: requestURL,
@@ -565,16 +685,24 @@ function tbs_vk_Checking(){
                                     if (data.response.items[item].title.includes('TBS')){
                                         found = true
                                         var externalPlayer = data.response.items[item].player + '&autoplay=1'
-                                        links = {'tbs': externalPlayer}
                                         axios({
-                                            method: 'post',
+                                            method: 'get',
                                             url: linksStorageURL,
-                                            data: links
+                                            responseType: 'json'
                                         })
-                                        .then(function(){
-                                            document.getElementById('tbs_vk_Loader').style.display = 'none';
-                                            document.getElementById('tbs_vk_Checked').style.display = 'inline-block';
-                                            console.log('TBS has been found on VK!')
+                                        .then(function(response){
+                                            var links = response.data
+                                            links.tbs = externalPlayer
+                                            axios({
+                                                method: 'put',
+                                                url: linksStorageURL,
+                                                data: links
+                                            })
+                                            .then(function(){
+                                                document.getElementById('tbs_vk_Loader').style.display = 'none';
+                                                document.getElementById('tbs_vk_Checked').style.display = 'inline-block';
+                                                console.log('TBS has been found on VK!')
+                                            })
                                         })
                                     }
                                 }else{
@@ -614,7 +742,7 @@ function tokyomx_vk_Checking(){
                 document.getElementById('tokyomx_vk_checking_statuscontainer').style.display = 'flex'
                 console.log('Checking Tokyo MX on VK...')
                 var owner_id = '-177082369'
-                var linksStorageURL = 'https://animenosekai.herokuapp.com/japanterebi/api/channels'
+                var linksStorageURL = 'https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71'
                 requestURL = 'https://api.vk.com/method/video.get?owner_id='+ owner_id + '&count=3&offset=0&access_token=' + window.localStorage.getItem('vkAPIToken_accessToken') + '&v=5.120'
                 $.ajax ({
                     url: requestURL,
@@ -630,16 +758,24 @@ function tokyomx_vk_Checking(){
                                     if (data.response.items[item].title.includes('Tokyo MX')){
                                         found = true
                                         var externalPlayer = data.response.items[item].player + '&autoplay=1'
-                                        var links = {'tokyomx': externalPlayer}
                                         axios({
-                                            method: 'post',
+                                            method: 'get',
                                             url: linksStorageURL,
-                                            data: links
+                                            responseType: 'json'
                                         })
-                                        .then(function(){
-                                            document.getElementById('tokyomx_vk_Loader').style.display = 'none';
-                                            document.getElementById('tokyomx_vk_Checked').style.display = 'inline-block';
-                                            console.log('Tokyo MX has been found on VK!')
+                                        .then(function(response){
+                                            var links = response.data
+                                            links.tokyomx = externalPlayer
+                                            axios({
+                                                method: 'put',
+                                                url: linksStorageURL,
+                                                data: links
+                                            })
+                                            .then(function(){
+                                                document.getElementById('tokyomx_vk_Loader').style.display = 'none';
+                                                document.getElementById('tokyomx_vk_Checked').style.display = 'inline-block';
+                                                console.log('Tokyo MX has been found on VK!')
+                                            })
                                         })
                                     }
                                 }
