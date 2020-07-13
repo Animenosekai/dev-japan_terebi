@@ -19,6 +19,23 @@ window.onload = function(){
 }
 
 function checkAll(){
+    // New CheckAll thanks to the new server
+    document.getElementById('checkAllText').style.display = 'none';
+    document.getElementById('checkAllLoader').style.display = 'block';
+    ntvChecking()
+    tvtokyoChecking()
+    tvasahiChecking()
+    fujitvChecking()
+    tokyomxChecking()
+    tbsChecking()
+    nhkChecking()
+    atxChecking()
+    tokyomx_vk_Checking()
+    tbs_vk_Checking()
+}
+
+/*
+function checkAll(){
     document.getElementById('checkAllText').style.display = 'none';
     document.getElementById('checkAllLoader').style.display = 'block';
 
@@ -213,7 +230,7 @@ function checkAll(){
     document.getElementById('checkAllText').style.display = 'block';
     document.getElementById('checkAllLoader').style.display = 'none';
 }
-
+*/
 
 function ntvChecking(){
     try{
