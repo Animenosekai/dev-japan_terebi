@@ -511,7 +511,7 @@ function atxChecking(){
                 console.log('Checking AT-X on VK...')
                 var owner_id = '-177082369'
                 var linksStorageURL = 'https://animenosekai.herokuapp.com/japanterebi/api/channels'
-                requestURL = 'https://api.vk.com/method/video.get?owner_id='+ owner_id + '&count=3&offset=0&access_token=' + window.localStorage.getItem('vkAPIToken_accessToken') + '&v=5.120'
+                requestURL = 'https://api.vk.com/method/video.get?owner_id='+ owner_id + '&count=3&offset=0&extended=1&access_token=' + window.localStorage.getItem('vkAPIToken_accessToken') + '&v=5.120'
                 $.ajax ({
                     url: requestURL,
                     type: 'GET',
