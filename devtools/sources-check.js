@@ -240,8 +240,7 @@ function ntvChecking(){
         var linksStorageURL = 'https://animenosekai.herokuapp.com/japanterebi/api/channels'
         axios({
             method: 'get',
-            //url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/ntv/'
-            url: 'https://mov3.co/ntv/'
+            url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/ntv/'
         })
         .then(function(response){
             var startIndex = response.data.indexOf("iframe") + 24
@@ -281,10 +280,11 @@ function tvtokyoChecking(){
             url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tvtokyo'
         })
         .then(function(response){
-            document.getElementById('requestResponseContainer').innerHTML = response.data
-            tvtokyoNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
-            tvtokyoNewLink = tvtokyoNewLink.substring(0, 38) + '?autoplay=1'
-            links = {'tvtokyo': tvtokyoNewLink}
+            var startIndex = response.data.indexOf("iframe") + 24
+            var endIndex = response.data.indexOf("scrolling") - 2
+            source = response.data.substring(startIndex, endIndex) + '?autoplay=1'
+            console.log("Link: " + source)
+            links = {'tvtokyo': source}
             axios({
                 method: 'post',
                 url: linksStorageURL,
@@ -317,10 +317,11 @@ function tvasahiChecking(){
             url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tvasahi'
         })
         .then(function(response){
-            document.getElementById('requestResponseContainer').innerHTML = response.data
-            tvasahiNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
-            tvasahiNewLink = tvasahiNewLink.substring(0, 38) + '?autoplay=1'
-            links = {'tvasahi': tvasahiNewLink}
+            var startIndex = response.data.indexOf("iframe") + 24
+            var endIndex = response.data.indexOf("scrolling") - 2
+            source = response.data.substring(startIndex, endIndex) + '?autoplay=1'
+            console.log("Link: " + source)
+            links = {'tvasahi': source}
             axios({
                 method: 'post',
                 url: linksStorageURL,
@@ -353,10 +354,11 @@ function fujitvChecking(){
             url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/fujitv'
         })
         .then(function(response){
-            document.getElementById('requestResponseContainer').innerHTML = response.data
-            fujitvNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
-            fujitvNewLink = fujitvNewLink.substring(0, 38) + '?autoplay=1'
-            links = {'fujitv': fujitvNewLink} 
+            var startIndex = response.data.indexOf("iframe") + 24
+            var endIndex = response.data.indexOf("scrolling") - 2
+            source = response.data.substring(startIndex, endIndex) + '?autoplay=1'
+            console.log("Link: " + source)
+            links = {'fujitv': source}
             axios({
                 method: 'post',
                 url: linksStorageURL,
@@ -389,10 +391,11 @@ function tokyomxChecking(){
             url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tokyomx'
         })
         .then(function(response){
-            document.getElementById('requestResponseContainer').innerHTML = response.data
-            tokyomxNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
-            tokyomxNewLink = tokyomxNewLink.substring(0, 38) + '?autoplay=1'
-            links = {'tokyomx': tokyomxNewLink, "tokyomx_mov3": tokyomxNewLink}
+            var startIndex = response.data.indexOf("iframe") + 24
+            var endIndex = response.data.indexOf("scrolling") - 2
+            source = response.data.substring(startIndex, endIndex) + '?autoplay=1'
+            console.log("Link: " + source)
+            links = {'tokyomx': source, 'tokyomx_mov3': source}
             axios({
                 method: 'post',
                 url: linksStorageURL,
@@ -425,10 +428,11 @@ function tbsChecking(){
             url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/tbs'
         })
         .then(function(response){
-            document.getElementById('requestResponseContainer').innerHTML = response.data
-            tbsNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
-            tbsNewLink = tbsNewLink.substring(0, 38) + '?autoplay=1'
-            links = {'tbs': tbsNewLink, 'tbs_mov3': tbsNewLink}
+            var startIndex = response.data.indexOf("iframe") + 24
+            var endIndex = response.data.indexOf("scrolling") - 2
+            source = response.data.substring(startIndex, endIndex) + '?autoplay=1'
+            console.log("Link: " + source)
+            links = {'tbs': source, 'tbs_mov3': source}
             axios({
                 method: 'post',
                 url: linksStorageURL,
@@ -461,10 +465,11 @@ function nhkChecking(){
             url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/nhk'
         })
         .then(function(response){
-            document.getElementById('requestResponseContainer').innerHTML = response.data
-            nhkNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
-            nhkNewLink = nhkNewLink.substring(0, 38) + '?autoplay=1'
-            links = {'nhk': nhkNewLink}
+            var startIndex = response.data.indexOf("iframe") + 24
+            var endIndex = response.data.indexOf("scrolling") - 2
+            source = response.data.substring(startIndex, endIndex) + '?autoplay=1'
+            console.log("Link: " + source)
+            links = {'nhk': source}
             axios({
                 method: 'post',
                 url: linksStorageURL,
