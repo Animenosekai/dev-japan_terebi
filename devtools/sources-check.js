@@ -574,7 +574,7 @@ function bs11Checking(){
             }else{
                 document.getElementById('bs11checking_btn').style.display = 'none';
                 document.getElementById('bs11checking_statuscontainer').style.display = 'flex'
-                console.log('Checking AT-X on VK...')
+                console.log('Checking BS11 on VK...')
                 var owner_id = '-177082369'
                 var linksStorageURL = 'https://animenosekai.herokuapp.com/japanterebi/api/channels'
                 requestURL = 'https://api.vk.com/method/video.get?owner_id='+ owner_id + '&count=3&offset=0&access_token=' + window.localStorage.getItem('vkAPIToken_accessToken') + '&v=5.120'
@@ -589,7 +589,7 @@ function bs11Checking(){
                         for(item in data.response.items){
                             try{
                                 if (data.response.items[item].live == 1){
-                                    if (data.response.items[item].title.includes('AT-X')){
+                                    if (data.response.items[item].title.includes('BS11')){
                                         found = true
                                         var externalPlayer = data.response.items[item].player + '&autoplay=1'
                                         links = {'bs11': externalPlayer}
@@ -601,7 +601,7 @@ function bs11Checking(){
                                         .then(function(){
                                             document.getElementById('bs11Loader').style.display = 'none';
                                             document.getElementById('bs11Checked').style.display = 'inline-block';
-                                            console.log('AT-X has been found on VK!')
+                                            console.log('BS11 has been found on VK!')
                                         })
                                     }
                                 }else{
@@ -613,8 +613,8 @@ function bs11Checking(){
                         }
                         if (found == false){
                             document.getElementById('bs11Loader').style.display = 'none';
-                            document.getElementById('bs11checking_text').innerText = 'No AT-X source on VK ❌'
-                            console.log('No AT-X on VK...')
+                            document.getElementById('bs11checking_text').innerText = 'No BS11 source on VK ❌'
+                            console.log('No BS11 on VK...')
                         }
                 }})
             }
@@ -625,8 +625,8 @@ function bs11Checking(){
         document.getElementById('bs11checking_btn').style.display = 'none';
         document.getElementById('bs11checking_statuscontainer').style.display = 'flex'
         document.getElementById('bs11Loader').style.display = 'none';
-        document.getElementById('bs11checking_text').innerText = 'An error occured while checking for AT-X on VK ❌'
-        console.log('An error occured while trying to check for AT-X on VK...')
+        document.getElementById('bs11checking_text').innerText = 'An error occured while checking for BS11 on VK ❌'
+        console.log('An error occured while trying to check for BS11 on VK...')
     }
 }
 
