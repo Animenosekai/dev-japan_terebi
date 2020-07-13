@@ -240,7 +240,7 @@ function ntvChecking(){
         var linksStorageURL = 'https://animenosekai.herokuapp.com/japanterebi/api/channels'
         axios({
             method: 'get',
-            url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/ntv'
+            url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/ntv/'
         })
         .then(function(response){
             var startIndex = response.data.indexOf('<iframe id="su-ivp" src="') + 25
