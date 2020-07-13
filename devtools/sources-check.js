@@ -29,9 +29,11 @@ function checkAll(){
     tokyomxChecking()
     tbsChecking()
     nhkChecking()
-    atxChecking()
-    tokyomx_vk_Checking()
-    tbs_vk_Checking()
+//    atxChecking()
+//    tokyomx_vk_Checking()
+//    tbs_vk_Checking()
+// VK needs to be done manually because a login is needed.
+// Also, it's better to avoid collision.
 }
 
 /*
@@ -521,6 +523,8 @@ function atxChecking(){
                         for(item in data.response.items){
                             try{
                                 if (data.response.items[item].live == 1){
+                                    console.log(data.response.items[item].title)
+                                    console.log(data.response.items[item].title.includes('AT-X'))
                                     if (data.response.items[item].title.includes('AT-X')){
                                         found = true
                                         var externalPlayer = data.response.items[item].player + '&autoplay=1'
