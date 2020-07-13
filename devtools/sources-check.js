@@ -243,10 +243,10 @@ function ntvChecking(){
             url: 'https://cors-anywhere.herokuapp.com/https://mov3.co/ntv'
         })
         .then(function(response){
-            document.getElementById('requestResponseContainer').innerHTML = response.data
-            ntvNewLink = document.getElementById('su-ivp').src + '?autoplay=1'
-            ntvNewLink = ntvNewLink.substring(0, 38) + '?autoplay=1'
-            links = {'ntv': ntvNewLink} 
+            var startIndex = response.data.indexOf('<iframe id="su-ivp" src="') + 25
+            var endIndex = response.data.indexOf('" scrolling="no" frameborder="0" marginwidth="0" marginheight="0" allowtransparency="true" allowfullscreen="true" seamless="" style="border:" none;="" overflow:="" hidden;="" width:="" 70%;="" height:="" 576;')
+            source = response.data.substring(startIndex, endIndex) + '?autoplay=1'
+            links = {'ntv': source} 
             axios({
                 method: 'post',
                 url: linksStorageURL,
