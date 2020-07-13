@@ -14,6 +14,7 @@ window.onload = function(){
     document.getElementById('tbschecking_btn').onclick = tbsChecking
     document.getElementById('nhkchecking_btn').onclick = nhkChecking
     document.getElementById('atxchecking_btn').onclick = atxChecking
+    document.getElementById('bs11checking_btn').onclick = bs11Checking
     document.getElementById('tokyomx_vk_checking_btn').onclick = tokyomx_vk_Checking
     document.getElementById('tbs_vk_checking_btn').onclick = tbs_vk_Checking
 }
@@ -511,7 +512,7 @@ function atxChecking(){
                 console.log('Checking AT-X on VK...')
                 var owner_id = '-177082369'
                 var linksStorageURL = 'https://animenosekai.herokuapp.com/japanterebi/api/channels'
-                requestURL = 'https://api.vk.com/method/video.get?owner_id='+ owner_id + '&count=3&offset=0&extended=1&access_token=' + window.localStorage.getItem('vkAPIToken_accessToken') + '&v=5.120'
+                requestURL = 'https://api.vk.com/method/video.get?owner_id='+ owner_id + '&count=3&offset=0&access_token=' + window.localStorage.getItem('vkAPIToken_accessToken') + '&v=5.120'
                 $.ajax ({
                     url: requestURL,
                     type: 'GET',
@@ -523,8 +524,6 @@ function atxChecking(){
                         for(item in data.response.items){
                             try{
                                 if (data.response.items[item].live == 1){
-                                    console.log(data.response.items[item].title)
-                                    console.log(data.response.items[item].title.includes('AT-X'))
                                     if (data.response.items[item].title.includes('AT-X')){
                                         found = true
                                         var externalPlayer = data.response.items[item].player + '&autoplay=1'
@@ -562,6 +561,71 @@ function atxChecking(){
         document.getElementById('atxchecking_statuscontainer').style.display = 'flex'
         document.getElementById('atxLoader').style.display = 'none';
         document.getElementById('atxchecking_text').innerText = 'An error occured while checking for AT-X on VK ❌'
+        console.log('An error occured while trying to check for AT-X on VK...')
+    }
+}
+
+function bs11Checking(){
+    try{
+        if(window.localStorage.getItem('vkAPIToken_accessToken') !== null){
+            var time = (Math.abs(new Date() - new Date(window.localStorage.getItem("vkAPIToken_tokenCreationDate")))/1000) + 120
+            if(time>window.localStorage.getItem('vkAPIToken_expiration')){
+                getVkToken()
+            }else{
+                document.getElementById('bs11checking_btn').style.display = 'none';
+                document.getElementById('bs11checking_statuscontainer').style.display = 'flex'
+                console.log('Checking AT-X on VK...')
+                var owner_id = '-177082369'
+                var linksStorageURL = 'https://animenosekai.herokuapp.com/japanterebi/api/channels'
+                requestURL = 'https://api.vk.com/method/video.get?owner_id='+ owner_id + '&count=3&offset=0&access_token=' + window.localStorage.getItem('vkAPIToken_accessToken') + '&v=5.120'
+                $.ajax ({
+                    url: requestURL,
+                    type: 'GET',
+                    dataType: 'jsonp',
+                    crossDomain: true,
+                    success: function (data){
+                        console.log(data)
+                        var found = false
+                        for(item in data.response.items){
+                            try{
+                                if (data.response.items[item].live == 1){
+                                    if (data.response.items[item].title.includes('AT-X')){
+                                        found = true
+                                        var externalPlayer = data.response.items[item].player + '&autoplay=1'
+                                        links = {'bs11': externalPlayer}
+                                        axios({
+                                            method: 'post',
+                                            url: linksStorageURL,
+                                            data: links
+                                        })
+                                        .then(function(){
+                                            document.getElementById('bs11Loader').style.display = 'none';
+                                            document.getElementById('bs11Checked').style.display = 'inline-block';
+                                            console.log('AT-X has been found on VK!')
+                                        })
+                                    }
+                                }else{
+                                    console.log('Not live, ignoring...')
+                                }
+                            }catch{
+                                console.log('Not live, ignoring...')
+                            }
+                        }
+                        if (found == false){
+                            document.getElementById('bs11Loader').style.display = 'none';
+                            document.getElementById('bs11checking_text').innerText = 'No AT-X source on VK ❌'
+                            console.log('No AT-X on VK...')
+                        }
+                }})
+            }
+        }else{
+            getVkToken()
+        }
+    }catch{
+        document.getElementById('bs11checking_btn').style.display = 'none';
+        document.getElementById('bs11checking_statuscontainer').style.display = 'flex'
+        document.getElementById('bs11Loader').style.display = 'none';
+        document.getElementById('bs11checking_text').innerText = 'An error occured while checking for AT-X on VK ❌'
         console.log('An error occured while trying to check for AT-X on VK...')
     }
 }
