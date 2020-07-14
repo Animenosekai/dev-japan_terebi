@@ -2,7 +2,7 @@
 
 //https://jsonblob.com/8d462070-78d2-11ea-8599-21f0f9a3ea71
 //https://jsonblob.com/api/jsonBlob/8d462070-78d2-11ea-8599-21f0f9a3ea71
-
+//https://animenosekai.herokuapp.com/japanterebi/api/channels
 
 window.onload = function(){
     document.getElementById('checkall_btn').onclick = checkAll
@@ -31,6 +31,7 @@ function checkAll(){
     tbsChecking()
     nhkChecking()
 //    atxChecking()
+//    bs11Checking()
 //    tokyomx_vk_Checking()
 //    tbs_vk_Checking()
 // VK needs to be done manually because a login is needed.
